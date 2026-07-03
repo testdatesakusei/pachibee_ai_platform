@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Machine Intelligence</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">AI Intelligence</div>
+
+        <nav>
+            <a class="active" href="/">Dashboard</a>
+            <a href="/search">Machine</a>
+            <a href="/">Hall</a>
+            <a href="/">Market</a>
+            <a href="/">Events</a>
+            <a href="/">Forecast</a>
+            <a href="/">Reports</a>
+            <a href="/">AI Advisor</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Machine Intelligence</p>
+                <h1>Today's Brief</h1>
+            </div>
+            <div class="date-label">AI Dashboard</div>
+        </header>
+
+        <section class="brief-grid">
+
+            <div class="brief-card action-buy">
+                <div class="brief-label">BUY</div>
+                <strong>3</strong>
+                <p>導入・増台推奨</p>
+            </div>
+        
+            <div class="brief-card action-keep">
+                <div class="brief-label">KEEP</div>
+                <strong>18</strong>
+                <p>継続運用候補</p>
+            </div>
+        
+            <div class="brief-card action-watch">
+                <div class="brief-label">WATCH</div>
+                <strong>7</strong>
+                <p>再評価対象</p>
+            </div>
+        
+            <div class="brief-card action-sell">
+                <div class="brief-label">SELL</div>
+                <strong>2</strong>
+                <p>売却・撤去候補</p>
+            </div>
+        
+        </section>
+
+        <section class="search-card">
+            <div>
+                <p class="eyebrow">Quick Search</p>
+                <h2>機種検索</h2>
+            </div>
+            <form action="/machine" method="get">
+                <input name="name" placeholder="機種名を入力">
+                <button type="submit">Search</button>
+            </form>
+        </section>
+
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <span>総機種数</span>
+                <strong>{{ total }}</strong>
+            </div>
+
+            <div class="kpi-card">
+                <span>パチンコ</span>
+                <strong>{{ p_count }}</strong>
+            </div>
+
+            <div class="kpi-card">
+                <span>パチスロ</span>
+                <strong>{{ s_count }}</strong>
+            </div>
+        </section>
+
+        <section class="ranking-grid">
+
+            <div class="ranking-card">
+                <div class="section-title">
+                    <p class="eyebrow">Pachinko</p>
+                    <h2>パチンコ TOP20</h2>
+                </div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Machine</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for row in p_top %}
+                    <tr>
+                        <td>{{ row.overall_rank }}</td>
+                        <td>
+                            <a href="/machine?name={{ row.machine_name }}">
+                                {{ row.machine_name }}
+                            </a>
+                        </td>
+                        <td>{{ row.overall_score_v2 }}</td>
+                        <td><span class="grade">{{ row.overall_grade_v2 }}</span></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="ranking-card">
+                <div class="section-title">
+                    <p class="eyebrow">Slot</p>
+                    <h2>パチスロ TOP20</h2>
+                </div>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Machine</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for row in s_top %}
+                    <tr>
+                        <td>{{ row.overall_rank }}</td>
+                        <td>
+                            <a href="/machine?name={{ row.machine_name }}">
+                                {{ row.machine_name }}
+                            </a>
+                        </td>
+                        <td>{{ row.overall_score_v2 }}</td>
+                        <td><span class="grade">{{ row.overall_grade_v2 }}</span></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Machine Search</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">AI Intelligence</div>
+
+        <nav>
+            <a href="/">Dashboard</a>
+            <a class="active" href="/search">Machine</a>
+            <a href="#">Hall</a>
+            <a href="#">Market</a>
+            <a href="#">Events</a>
+            <a href="#">Forecast</a>
+            <a href="#">Reports</a>
+            <a href="#">AI Advisor</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Machine Intelligence</p>
+                <h1>Machine Search</h1>
+            </div>
+
+            <a href="/" class="back-link">Dashboardへ戻る</a>
+        </header>
+
+        <section class="search-card">
+
+            <div class="sort-menu">
+
+                <a href="/search?q={{ q }}&sort=overall"
+                   class="{% if sort=='overall' %}sort-active{% endif %}">
+                    総合順
+                </a>
+            
+                <a href="/search?q={{ q }}&sort=popularity"
+                   class="{% if sort=='popularity' %}sort-active{% endif %}">
+                    人気順
+                </a>
+            
+                <a href="/search?q={{ q }}&sort=profit"
+                   class="{% if sort=='profit' %}sort-active{% endif %}">
+                    粗利順
+                </a>
+            
+                <a href="/search?q={{ q }}&sort=lifecycle"
+                   class="{% if sort=='lifecycle' %}sort-active{% endif %}">
+                    寿命順
+                </a>
+            
+            </div>
+
+            <div>
+                <p class="eyebrow">SEARCH</p>
+                <h2>機種検索</h2>
+            </div>
+
+            <form action="/search" method="get">
+
+                <div class="autocomplete-wrap">
+                    <input
+                        id="machine-search-input"
+                        type="text"
+                        name="q"
+                        value="{{ q }}"
+                        placeholder="東京喰種・ジャグラー・海物語..."
+                        autocomplete="off"
+                    >
+                    <div id="suggest-box"></div>
+                </div>
+
+                <button>Search</button>
+
+            </form>
+
+        </section>
+
+
+        <!-- パチスロ -->
+
+        <section class="ranking-card">
+
+            <div class="section-title">
+
+                <p class="eyebrow">SLOT</p>
+
+                <h2>パチスロ TOP20</h2>
+
+            </div>
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Rank</th>
+
+                    <th>Machine</th>
+
+                    <th>Score</th>
+
+                    <th>Grade</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for row in s_results %}
+
+                <tr>
+
+                    <td>{{ row.overall_rank }}</td>
+
+                    <td>
+
+                        <a href="/machine?name={{ row.machine_name }}">
+
+                            {{ row.machine_name }}
+
+                        </a>
+
+                    </td>
+
+                    <td>{{ row.overall_score_v2 }}</td>
+
+                    <td>
+
+                        <span class="grade">
+
+                            {{ row.overall_grade_v2 }}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <br><br>
+
+
+        <!-- パチンコ -->
+
+        <section class="ranking-card">
+
+            <div class="section-title">
+
+                <p class="eyebrow">PACHINKO</p>
+
+                <h2>パチンコ TOP20</h2>
+
+            </div>
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Rank</th>
+
+                    <th>Machine</th>
+
+                    <th>Score</th>
+
+                    <th>Grade</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for row in p_results %}
+
+                <tr>
+
+                    <td>{{ row.overall_rank }}</td>
+
+                    <td>
+
+                        <a href="/machine?name={{ row.machine_name }}">
+
+                            {{ row.machine_name }}
+
+                        </a>
+
+                    </td>
+
+                    <td>{{ row.overall_score_v2 }}</td>
+
+                    <td>
+
+                        <span class="grade">
+
+                            {{ row.overall_grade_v2 }}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/search.js') }}"></script>
+
+</body>
+
+</html>

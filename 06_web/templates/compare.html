@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Machine Compare</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">AI Intelligence</div>
+
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="/search">Machine</a>
+            <a class="active" href="/compare">Compare</a>
+            <a href="#">Hall</a>
+            <a href="#">Market</a>
+            <a href="#">Events</a>
+            <a href="#">Forecast</a>
+            <a href="#">Reports</a>
+            <a href="#">AI Advisor</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Machine Intelligence</p>
+                <h1>Machine Compare</h1>
+            </div>
+            <a href="/" class="back-link">Dashboardへ戻る</a>
+        </header>
+
+        <section class="search-card">
+            <div>
+                <p class="eyebrow">COMPARE</p>
+                <h2>機種比較</h2>
+            </div>
+
+            <form action="/compare" method="get">
+                <input name="name1" value="{{ name1 }}" placeholder="比較機種A">
+                <input name="name2" value="{{ name2 }}" placeholder="比較機種B">
+                <button type="submit">Compare</button>
+            </form>
+        </section>
+
+        {% if machine1 and machine2 %}
+
+        <section class="ranking-card">
+            <div class="section-title">
+                <p class="eyebrow">RESULT</p>
+                <h2>比較結果</h2>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>{{ machine1.machine_name }}</th>
+                        <th>{{ machine2.machine_name }}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>カテゴリ</td>
+                        <td>{{ machine1.category }}</td>
+                        <td>{{ machine2.category }}</td>
+                    </tr>
+                    <tr>
+                        <td>総合評価</td>
+                        <td>{{ machine1.overall_score_v2 }}</td>
+                        <td>{{ machine2.overall_score_v2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>Grade</td>
+                        <td><span class="grade">{{ machine1.overall_grade_v2 }}</span></td>
+                        <td><span class="grade">{{ machine2.overall_grade_v2 }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>現役人気</td>
+                        <td>{{ machine1.active_popularity_score_v2 }}</td>
+                        <td>{{ machine2.active_popularity_score_v2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>粗利</td>
+                        <td>{{ machine1.profit_score_v2 }}</td>
+                        <td>{{ machine2.profit_score_v2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>寿命</td>
+                        <td>{{ machine1.lifecycle_score_v2 }}</td>
+                        <td>{{ machine2.lifecycle_score_v2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>資産性</td>
+                        <td>{{ machine1.asset_score_v2 }}</td>
+                        <td>{{ machine2.asset_score_v2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>総合順位</td>
+                        <td>{{ machine1.overall_rank }}位</td>
+                        <td>{{ machine2.overall_rank }}位</td>
+                    </tr>
+                    <tr>
+                        <td>人気順位</td>
+                        <td>{{ machine1.active_rank }}位</td>
+                        <td>{{ machine2.active_rank }}位</td>
+                    </tr>
+                    <tr>
+                        <td>粗利順位</td>
+                        <td>{{ machine1.profit_rank }}位</td>
+                        <td>{{ machine2.profit_rank }}位</td>
+                    </tr>
+                    <tr>
+                        <td>寿命順位</td>
+                        <td>{{ machine1.lifecycle_rank }}位</td>
+                        <td>{{ machine2.lifecycle_rank }}位</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="detail-grid">
+            <div class="detail-card">
+                <p class="eyebrow">AI Insight A</p>
+                <h2>{{ machine1.machine_name }}</h2>
+                <p class="insight-text">{{ machine1.ai_comment_v2 }}</p>
+            </div>
+
+            <div class="detail-card">
+                <p class="eyebrow">AI Insight B</p>
+                <h2>{{ machine2.machine_name }}</h2>
+                <p class="insight-text">{{ machine2.ai_comment_v2 }}</p>
+            </div>
+        </section>
+
+        {% else %}
+
+        <section class="detail-card">
+            <p class="eyebrow">HOW TO USE</p>
+            <h2>比較したい2機種を入力してください</h2>
+            <p class="insight-text">
+                例：Lスロット ソードアート・オンラインⅡ と マイジャグラーⅤ
+            </p>
+        </section>
+
+        {% endif %}
+
+    </main>
+
+</div>
+
+</body>
+</html>

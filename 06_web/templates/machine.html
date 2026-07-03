@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Machine Detail</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">AI Intelligence</div>
+
+        <nav>
+            <a href="/">Dashboard</a>
+            <a class="active" href="/search">Machine</a>
+            <a href="/">Hall</a>
+            <a href="/">Market</a>
+            <a href="/">Events</a>
+            <a href="/">Forecast</a>
+            <a href="/">Reports</a>
+            <a href="/">AI Advisor</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        {% if machine %}
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Machine Detail</p>
+                <h1>{{ machine.machine_name }}</h1>
+            </div>
+            <a href="/" class="back-link">Dashboardへ戻る</a>
+        </header>
+
+        <section class="machine-hero">
+
+            <div>
+                <p class="eyebrow">{{ machine.category }} Intelligence</p>
+                <h2>AI SCORE</h2>
+                <div class="hero-score">{{ machine.overall_score_v2 }}</div>
+            </div>
+
+            <div class="hero-judgement">
+                {% if machine.overall_score_v2 >= 70 %}
+                    <span class="judgement buy">BUY</span>
+                    <p>導入・増台推奨</p>
+                {% elif machine.overall_score_v2 >= 50 %}
+                    <span class="judgement keep">KEEP</span>
+                    <p>継続運用候補</p>
+                {% elif machine.overall_score_v2 >= 40 %}
+                    <span class="judgement watch">WATCH</span>
+                    <p>再評価対象</p>
+                {% else %}
+                    <span class="judgement sell">SELL</span>
+                    <p>売却・撤去候補</p>
+                {% endif %}
+            </div>
+
+        </section>
+
+        <section class="score-grid">
+
+            <div class="score-card">
+                <span>Popularity</span>
+                <strong>{{ machine.active_popularity_score_v2 }}</strong>
+                <div class="bar"><div style="width:{{ machine.active_popularity_score_v2 }}%"></div></div>
+            </div>
+
+            <div class="score-card">
+                <span>Profit</span>
+                <strong>{{ machine.profit_score_v2 }}</strong>
+                <div class="bar"><div style="width:{{ machine.profit_score_v2 }}%"></div></div>
+            </div>
+
+            <div class="score-card">
+                <span>Lifecycle</span>
+                <strong>{{ machine.lifecycle_score_v2 }}</strong>
+                <div class="bar"><div style="width:{{ machine.lifecycle_score_v2 }}%"></div></div>
+            </div>
+
+            <div class="score-card">
+                <span>Asset</span>
+                <strong>{{ machine.asset_score_v2 }}</strong>
+                <div class="bar"><div style="width:{{ machine.asset_score_v2 }}%"></div></div>
+            </div>
+
+        </section>
+
+        <section class="detail-grid">
+
+            <div class="detail-card large">
+                <p class="eyebrow">AI Insight</p>
+                <h2>総合判断</h2>
+                <p class="insight-text">{{ machine.ai_comment_v2 }}</p>
+            </div>
+
+            <div class="detail-card">
+                <p class="eyebrow">Rank</p>
+                <h2>カテゴリ内順位</h2>
+                <ul class="rank-list">
+                    <li>総合順位：{{ machine.overall_rank }}位</li>
+                    <li>人気順位：{{ machine.active_rank }}位</li>
+                    <li>粗利順位：{{ machine.profit_rank }}位</li>
+                    <li>寿命順位：{{ machine.lifecycle_rank }}位</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section class="detail-card">
+            <p class="eyebrow">Reason</p>
+            <h2>判断根拠</h2>
+            <p class="insight-text">{{ machine.score_reason_v2 }}</p>
+        </section>
+
+        <section class="placeholder-grid">
+
+            <div class="placeholder-card">
+                <p class="eyebrow">Trend</p>
+                <h2>稼働推移</h2>
+                <p>次フェーズでグラフ追加</p>
+            </div>
+
+            <div class="placeholder-card">
+                <p class="eyebrow">Market</p>
+                <h2>中古価格</h2>
+                <p>市場データ連携後に表示</p>
+            </div>
+
+            <div class="placeholder-card">
+                <p class="eyebrow">Install</p>
+                <h2>設置推移</h2>
+                <p>全国設置データ連携後に表示</p>
+            </div>
+
+        </section>
+
+        {% else %}
+
+        <section class="detail-card">
+            <h2>{{ message }}</h2>
+            <a href="/" class="back-link">Dashboardへ戻る</a>
+        </section>
+
+        {% endif %}
+
+    </main>
+
+</div>
+
+</body>
+</html>

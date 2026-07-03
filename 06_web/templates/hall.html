@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hall Intelligence</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">AI Intelligence</div>
+
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="/search">Machine</a>
+            <a class="active" href="/hall">Hall</a>
+            <a href="#">Market</a>
+            <a href="#">Events</a>
+            <a href="#">Forecast</a>
+            <a href="#">Reports</a>
+            <a href="#">AI Advisor</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Hall Intelligence</p>
+                <h1>Hall Search</h1>
+            </div>
+            <a href="/" class="back-link">Dashboardへ戻る</a>
+        </header>
+
+        <section class="search-card">
+            <div>
+                <p class="eyebrow">SEARCH</p>
+                <h2>ホール検索</h2>
+            </div>
+
+            <form action="/hall" method="get">
+                <input name="q" value="{{ q }}" placeholder="店舗名・地域を入力">
+                <button type="submit">Search</button>
+            </form>
+        </section>
+
+        <section class="ranking-card">
+            <div class="section-title">
+                <p class="eyebrow">HALL SCORE</p>
+                <h2>AI営業評価</h2>
+            </div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Hall</th>
+                    <th>Area</th>
+                    <th>AI Score</th>
+                    <th>Type</th>
+                    <th>Juggler</th>
+                    <th>Slot</th>
+                    <th>Pachinko</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for hall in halls %}
+                <tr>
+                    <td>{{ hall.hall_name }}</td>
+                    <td>{{ hall.area }}</td>
+                    <td>{{ hall.ai_score }}</td>
+                    <td>{{ hall.hall_type }}</td>
+                    <td>{{ hall.juggler_score }}</td>
+                    <td>{{ hall.slot_score }}</td>
+                    <td>{{ hall.pachinko_score }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

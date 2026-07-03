@@ -1,0 +1,2 @@
+﻿hall_name,area,total_units,pachinko_units,slot_units,avg_operation_score,avg_profit_score,return_score,juggler_score,smart_slot_score,pachinko_score,event_score,new_machine_score,market_score,future_score,ai_score,grade,hall_type,ai_comment
+サンプルホールA,東京都,500,300,200,88,84,72,91,86,74,68,76,70,82,81.5,B,ジャグラー強化型,サンプルホールAはAI営業評価81.5点。営業タイプはジャグラー強化型。稼働88点、利益84点、還元72点、ジャグラー91点、スマスロ86点、パチンコ74点。強いカテゴリを維持しつつ、弱いカテゴリの改善が次の課題。
